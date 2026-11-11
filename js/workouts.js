@@ -113,17 +113,7 @@ const WorkoutModule = {
       </div>
 
       <!-- Rest & Recovery Scientific Principle Banner -->
-      <div class="card banner-card">
-        <div class="banner-icon">
-          <i data-lucide="shield-alert" class="text-champagne-dark"></i>
-        </div>
-        <div class="banner-body">
-          <h4 class="banner-title">Crucial Recovery Principle</h4>
-          <p class="banner-text">
-            <strong>Do not test your maximum push-ups daily.</strong> Muscle growth and progressive overload require 48 hours of muscular recovery and adequate sleep (7–9 hours) to synthesize new tissue. Train hard on workout days, rest purposefully on recovery days.
-          </p>
-        </div>
-      </div>
+     
 
       <!-- Workout Routines Interactive Tabs -->
       <div class="card p-0 mt-6">

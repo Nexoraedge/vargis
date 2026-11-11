@@ -33,18 +33,6 @@ const SkincareModule = {
         </div>
       </div>
 
-      <!-- Core Barrier Philosophy Banner -->
-      <div class="card banner-card mb-6">
-        <div class="banner-icon">
-          <i data-lucide="shield-check" class="text-primary"></i>
-        </div>
-        <div class="banner-body">
-          <h4 class="banner-title">Skin Health & Barrier Philosophy</h4>
-          <p class="banner-text">
-            Our goal is pure skin health, natural glow, and daily UV photoprotection. We do <strong>not</strong> use fairness or skin-bleaching agents. The secret for dry skin is keeping the stratum corneum hydrated with gentle cleansing, deep moisturization, and broad-spectrum SPF 50.
-          </p>
-        </div>
-      </div>
 
       <!-- Today's Routine Checklists -->
       <div class="grid-2col gap-6">
@@ -77,7 +65,7 @@ const SkincareModule = {
             <label class="skincare-step-item">
               <input type="checkbox" class="custom-checkbox" id="chk-am-moist" ${skincareLog.amMoisturizer ? 'checked' : ''} onchange="SkincareModule.toggleStep('amMoisturizer', this.checked)">
               <div class="step-info">
-                <span class="step-name">2. Apply Pond's Super Light Gel Moisturizer</span>
+                <span class="step-name">2. Apply Moisturizer</span>
                 <span class="step-desc">Apply generously onto slightly damp skin to lock in hydration.</span>
               </div>
             </label>
@@ -121,7 +109,7 @@ const SkincareModule = {
             <label class="skincare-step-item">
               <input type="checkbox" class="custom-checkbox" id="chk-pm-moist" ${skincareLog.pmMoisturizer ? 'checked' : ''} onchange="SkincareModule.toggleStep('pmMoisturizer', this.checked)">
               <div class="step-info">
-                <span class="step-name">2. Apply Pond's Moisturizer</span>
+                <span class="step-name">2. Apply Moisturizer</span>
                 <span class="step-desc">Layer gently to support overnight cellular hydration and barrier regeneration.</span>
               </div>
             </label>

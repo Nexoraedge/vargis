@@ -101,15 +101,15 @@ const StorageManager = {
       { id: 'h_dinner', name: 'Protein dinner (soya chunks/paneer, roti)', category: 'Nutrition', icon: 'soup', active: true },
       { id: 'h_protein', name: 'Hit daily protein target (75–90g)', category: 'Nutrition', icon: 'target', active: true },
       { id: 'h_workout', name: 'Complete planned workout / active recovery', category: 'Fitness', icon: 'dumbbell', active: true },
-      { id: 'h_skincare_am', name: 'Morning skincare (Water + Pond\'s + SPF 50)', category: 'Skincare', icon: 'sun', active: true },
-      { id: 'h_skincare_pm', name: 'Evening skincare (Simple Wash + Pond\'s)', category: 'Skincare', icon: 'moon', active: true },
+      { id: 'h_skincare_am', name: 'Morning skincare (Water + Moisturizer + SPF 50)', category: 'Skincare', icon: 'sun', active: true },
+      { id: 'h_skincare_pm', name: 'Evening skincare (Simple Wash + Moisturizer)', category: 'Skincare', icon: 'moon', active: true },
       { id: 'h_sleep', name: 'Get 7–9 hours restorative sleep', category: 'Recovery', icon: 'bed', active: true }
     ];
 
     const defaultProducts = [
       {
         id: 'prod_ponds',
-        name: "Pond's Super Light Gel Moisturizer",
+        name: "Moisturizer",
         category: 'Moisturizer',
         step: 'Morning & Evening',
         status: 'In use',
