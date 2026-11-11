@@ -2221,6 +2221,54 @@ input, select, textarea {
   animation: slideUp 200ms ease forwards;
 }
 
+/* PWA Native App Install Banner */
+.pwa-install-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  background-color: var(--bg-sage-light);
+  border: 1px solid var(--secondary-sage);
+  border-radius: var(--radius-md);
+}
+
+.pwa-install-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  background-color: var(--primary);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.pwa-install-icon i {
+  width: 16px;
+  height: 16px;
+}
+
+.pwa-install-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.pwa-install-title {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.pwa-install-desc {
+  font-size: 0.78rem;
+  color: var(--text-main);
+  line-height: 1.35;
+}
+
 /* ==========================================================================
    Mobile-Specific Responsiveness (Meals, Workouts & Small Screens)
    ========================================================================== */

@@ -52,7 +52,22 @@ const DashboardModule = {
     // Time-based greeting
     const greeting = this.getTimeGreeting();
 
+    const showPwaBanner = !localStorage.getItem('comeback90_pwa_dismissed') && !window.matchMedia('(display-mode: standalone)').matches;
+
     container.innerHTML = `
+      ${showPwaBanner ? `
+        <div class="pwa-install-banner mb-4 animate-fadeIn" id="pwa-install-banner">
+          <div class="flex items-center gap-3">
+            <div class="pwa-install-icon"><i data-lucide="smartphone"></i></div>
+            <div class="pwa-install-text">
+              <span class="pwa-install-title">Install Native App</span>
+              <p class="pwa-install-desc">Tap <b>Share ⎋ → Add to Home Screen</b> in Safari/Chrome to use Comeback 90 fullscreen without browser bars.</p>
+            </div>
+          </div>
+          <button class="btn-icon btn-xs text-secondary" onclick="DashboardModule.dismissPwaBanner()" title="Dismiss">&times;</button>
+        </div>
+      ` : ''}
+
       <!-- Header Section -->
       <div class="dashboard-header animate-fadeIn">
         <div class="header-left">
@@ -68,7 +83,7 @@ const DashboardModule = {
         </div>
         <div class="header-right">
           <button class="btn btn-primary" onclick="DashboardModule.openQuickActionMenu()">
-            <i data-lucide="zap"></i> Quick Action
+            <i data-lucide="plus"></i> Quick Action
           </button>
         </div>
       </div>
@@ -335,9 +350,16 @@ const DashboardModule = {
     return d.toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'short', year: 'numeric' });
   },
 
+  dismissPwaBanner() {
+    localStorage.setItem('comeback90_pwa_dismissed', 'true');
+    const banner = document.getElementById('pwa-install-banner');
+    if (banner) banner.remove();
+  },
+
   toggleQuickHabit(habitId, checked) {
     const today = StorageManager.getTodayDateString();
     StorageManager.toggleHabitStatus(today, habitId);
+    if ('vibrate' in navigator) navigator.vibrate(25);
     App.showToast(checked ? 'Habit checked!' : 'Habit unchecked', 'info');
     App.refreshCurrentView();
   },

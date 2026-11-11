@@ -345,6 +345,7 @@ const NutritionModule = {
       if (daily.habits) daily.habits['h_water'] = true;
     }
     StorageManager.saveDailyLog(today, daily);
+    if ('vibrate' in navigator) navigator.vibrate(25);
     App.showToast(`Water updated: ${(newTotal / 1000).toFixed(2)} Litres`, 'info');
     App.refreshCurrentView();
   },
@@ -360,6 +361,7 @@ const NutritionModule = {
       quantity: items,
       notes: 'Preloaded blueprint log'
     });
+    if ('vibrate' in navigator) navigator.vibrate([25, 40]);
     App.showToast(`Logged ${mealType}: +${protein}g protein`, 'success');
     App.refreshCurrentView();
   },
@@ -375,6 +377,7 @@ const NutritionModule = {
       quantity,
       notes: 'Quick desk snack'
     });
+    if ('vibrate' in navigator) navigator.vibrate([25, 40]);
     App.showToast(`Added ${name}: +${protein}g protein`, 'success');
     App.refreshCurrentView();
   },
@@ -423,11 +426,11 @@ const NutritionModule = {
             <div class="grid-2col gap-4 mb-4">
               <div class="form-group">
                 <label class="form-label">Estimated Protein (g)</label>
-                <input type="number" step="0.5" class="form-input" id="meal-protein" placeholder="e.g. 25" required>
+                <input type="number" step="0.5" inputmode="decimal" class="form-input" id="meal-protein" placeholder="e.g. 25" required>
               </div>
               <div class="form-group">
                 <label class="form-label">Estimated Calories (kcal)</label>
-                <input type="number" class="form-input" id="meal-cals" placeholder="e.g. 500" required>
+                <input type="number" inputmode="numeric" class="form-input" id="meal-cals" placeholder="e.g. 500" required>
               </div>
             </div>
 

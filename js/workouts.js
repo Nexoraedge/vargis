@@ -423,11 +423,11 @@ const WorkoutModule = {
             <div class="grid-2col gap-4 mb-4">
               <div class="form-group">
                 <label class="form-label">Duration (minutes)</label>
-                <input type="number" class="form-input" id="wo-duration" value="45" min="5" max="180">
+                <input type="number" inputmode="numeric" class="form-input" id="wo-duration" value="45" min="5" max="180">
               </div>
               <div class="form-group">
                 <label class="form-label">Push-ups Completed (Total or Best Set)</label>
-                <input type="number" class="form-input" id="wo-pushups" placeholder="e.g. 45" min="0" max="200">
+                <input type="number" inputmode="numeric" class="form-input" id="wo-pushups" placeholder="e.g. 45" min="0" max="200">
               </div>
             </div>
 

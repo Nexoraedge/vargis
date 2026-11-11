@@ -318,6 +318,10 @@ const ProgressModule = {
   },
 
   openLogWeightModal() {
+    const weightLogs = StorageManager.getWeightLogs();
+    const latestLog = weightLogs.length > 0 ? weightLogs[weightLogs.length - 1] : null;
+    const prevWeight = latestLog ? latestLog.weight : (StorageManager.getProfile().startingWeight || 59.0);
+
     const modalHtml = `
       <div class="modal-backdrop" id="weight-modal">
         <div class="modal-sheet">
@@ -337,7 +341,13 @@ const ProgressModule = {
               </div>
               <div class="form-group">
                 <label class="form-label">Weight (kg) *</label>
-                <input type="number" step="0.1" class="form-input" id="w-weight" placeholder="e.g. 59.8" required>
+                <input type="number" step="0.1" inputmode="decimal" class="form-input" id="w-weight" value="${prevWeight.toFixed(1)}" required>
+                <div class="flex items-center gap-2 mt-2">
+                  <button type="button" class="btn btn-xs btn-outline" onclick="ProgressModule.stepWeight(-0.2)">-0.2</button>
+                  <button type="button" class="btn btn-xs btn-outline" onclick="ProgressModule.stepWeight(-0.1)">-0.1</button>
+                  <button type="button" class="btn btn-xs btn-outline" onclick="ProgressModule.stepWeight(0.1)">+0.1</button>
+                  <button type="button" class="btn btn-xs btn-outline" onclick="ProgressModule.stepWeight(0.2)">+0.2</button>
+                </div>
               </div>
             </div>
 
@@ -345,19 +355,19 @@ const ProgressModule = {
             <div class="grid-2col gap-4 mb-4">
               <div class="form-group">
                 <label class="form-label">Waist (navel level)</label>
-                <input type="number" step="0.5" class="form-input" id="w-waist" placeholder="e.g. 76">
+                <input type="number" step="0.5" inputmode="decimal" class="form-input" id="w-waist" placeholder="e.g. 76">
               </div>
               <div class="form-group">
                 <label class="form-label">Chest (broadest point)</label>
-                <input type="number" step="0.5" class="form-input" id="w-chest" placeholder="e.g. 88">
+                <input type="number" step="0.5" inputmode="decimal" class="form-input" id="w-chest" placeholder="e.g. 88">
               </div>
               <div class="form-group">
                 <label class="form-label">Arm (flexed bicep)</label>
-                <input type="number" step="0.5" class="form-input" id="w-arm" placeholder="e.g. 28.5">
+                <input type="number" step="0.5" inputmode="decimal" class="form-input" id="w-arm" placeholder="e.g. 28.5">
               </div>
               <div class="form-group">
                 <label class="form-label">Thigh (mid-quad)</label>
-                <input type="number" step="0.5" class="form-input" id="w-thigh" placeholder="e.g. 49.5">
+                <input type="number" step="0.5" inputmode="decimal" class="form-input" id="w-thigh" placeholder="e.g. 49.5">
               </div>
             </div>
 
@@ -403,9 +413,19 @@ const ProgressModule = {
       notes
     });
 
+    if ('vibrate' in navigator) navigator.vibrate([40]);
     this.closeModal();
     App.showToast(`Weight recorded: ${weight.toFixed(1)} kg`, 'success');
     App.refreshCurrentView();
+  },
+
+  stepWeight(delta) {
+    const input = document.getElementById('w-weight');
+    if (input) {
+      const current = parseFloat(input.value) || 59.0;
+      input.value = (Math.round((current + delta) * 10) / 10).toFixed(1);
+      if ('vibrate' in navigator) navigator.vibrate(20);
+    }
   },
 
   deleteLog(id) {
