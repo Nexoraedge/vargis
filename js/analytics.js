@@ -1,5 +1,5 @@
 /**
- * Comeback 90 - Analytics & Insights Module
+ * Vergis - Analytics & Insights Module
  * Multi-dimensional progress visualization, weekly retrospectives, and consistency metrics.
  */
 
@@ -37,8 +37,8 @@ const AnalyticsModule = {
           </div>
           <div class="metric-content">
             <span class="metric-label">Workouts This Week</span>
-            <span class="metric-value">${weeklyStats.workoutsCount} <span class="unit">/ 3</span></span>
-            <span class="metric-sub">${weeklyStats.workoutsCount >= 3 ? 'Target achieved!' : `${3 - weeklyStats.workoutsCount} needed`}</span>
+            <span class="metric-value">${weeklyStats.workoutsCount} <span class="unit">/ 4</span></span>
+            <span class="metric-sub">${weeklyStats.workoutsCount >= 4 ? 'Target achieved!' : `${4 - weeklyStats.workoutsCount} needed`}</span>
           </div>
         </div>
 
@@ -96,7 +96,7 @@ const AnalyticsModule = {
           <div class="card-header-row mb-4">
             <div>
               <h3 class="card-title text-base">Weekly Workout Volume</h3>
-              <p class="card-subtitle text-xs">Target: 3 strength sessions / week</p>
+              <p class="card-subtitle text-xs">Target: 4 strength sessions / week + Sunday sports</p>
             </div>
           </div>
           <div class="chart-container" style="height: 220px;">
@@ -339,3 +339,4 @@ const AnalyticsModule = {
     }
   }
 };
+

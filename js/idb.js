@@ -1,5 +1,5 @@
 /**
- * Comeback 90 - IndexedDB Photo Storage
+ * Vergis - IndexedDB Photo Storage
  * Keeps progress photos safely in client-side storage without filling LocalStorage quota.
  */
 

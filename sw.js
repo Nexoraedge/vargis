@@ -1,4 +1,4 @@
-// Comeback 90 Service Worker
+// Vergis Service Worker
 const CACHE_NAME = 'comeback90-v1';
 const ASSETS_TO_CACHE = [
   './',
@@ -57,3 +57,4 @@ self.addEventListener('fetch', (event) => {
     })
   );
 });
+

@@ -1,5 +1,5 @@
 /**
- * Comeback 90 - Main Application Controller & Router
+ * Vergis - Main Application Controller & Router
  * Orchestrates navigation, mobile bottom navigation, desktop sidebar,
  * toast notifications, and modular views.
  */
@@ -20,7 +20,7 @@ const App = {
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('./sw.js')
-          .then(reg => console.log('Comeback 90 SW registered:', reg.scope))
+          .then(reg => console.log('Vergis SW registered:', reg.scope))
           .catch(err => console.log('SW registration failed:', err));
       });
     }
@@ -45,10 +45,10 @@ const App = {
   },
 
   applyTheme(theme) {
-    document.documentElement.setAttribute('data-theme', theme);
+    document.documentElement.setAttribute('data-theme', 'light');
     const themeMeta = document.querySelector('meta[name="theme-color"]');
     if (themeMeta) {
-      themeMeta.setAttribute('content', theme === 'dark' ? '#141A17' : '#244B3C');
+      themeMeta.setAttribute('content', '#244B3C');
     }
   },
 
@@ -220,3 +220,4 @@ const App = {
 document.addEventListener('DOMContentLoaded', () => {
   App.init();
 });
+

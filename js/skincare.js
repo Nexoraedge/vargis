@@ -1,5 +1,5 @@
 /**
- * Comeback 90 - Skincare Tracker Module
+ * Vergis - Skincare Tracker Module
  * Minimal, barrier-focused skincare routine for dry skin.
  * Emphasizes gentle hydration, barrier repair, and SPF 50 photoprotection.
  * Zero skin-bleaching or aggressive treatments.
@@ -328,3 +328,4 @@ const SkincareModule = {
     if (modal) modal.remove();
   }
 };
+

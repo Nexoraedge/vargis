@@ -1,5 +1,5 @@
 /**
- * Comeback 90 - Vegetarian Nutrition Module
+ * Vergis - Vegetarian Nutrition Module
  * Clean, lean-bulking Indian vegetarian nutrition tracker with Desk Snacks and Water.
  */
 
@@ -269,37 +269,68 @@ const NutritionModule = {
     }
 
     return `
-      <table class="data-table">
-        <thead>
-          <tr>
-            <th>Time / Slot</th>
-            <th>Meal Item</th>
-            <th>Est. Protein</th>
-            <th>Est. Calories</th>
-            <th>Notes</th>
-            <th class="text-right">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${logs.map(log => `
+      <!-- Desktop Table View -->
+      <div class="desktop-table-view">
+        <table class="data-table">
+          <thead>
             <tr>
-              <td>
-                <span class="text-xs text-secondary">${log.time}</span><br>
-                <span class="badge badge-sage">${log.mealType}</span>
-              </td>
-              <td><strong>${log.name}</strong> ${log.quantity ? `<span class="text-secondary text-sm">(${log.quantity})</span>` : ''}</td>
-              <td><span class="font-semibold text-primary">${log.protein}g</span></td>
-              <td>${log.calories} kcal</td>
-              <td class="text-secondary text-sm">${log.notes || '—'}</td>
-              <td class="text-right">
-                <button class="btn-icon text-error" onclick="NutritionModule.deleteFoodEntry('${log.id}')" title="Delete">
-                  <i data-lucide="trash-2"></i>
-                </button>
-              </td>
+              <th>Time / Slot</th>
+              <th>Meal Item</th>
+              <th>Est. Protein</th>
+              <th>Est. Calories</th>
+              <th>Notes</th>
+              <th class="text-right">Actions</th>
             </tr>
-          `).join('')}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            ${logs.map(log => `
+              <tr>
+                <td>
+                  <span class="text-xs text-secondary">${log.time}</span><br>
+                  <span class="badge badge-sage">${log.mealType}</span>
+                </td>
+                <td><strong>${log.name}</strong> ${log.quantity ? `<span class="text-secondary text-sm">(${log.quantity})</span>` : ''}</td>
+                <td><span class="font-semibold text-primary">${log.protein}g</span></td>
+                <td>${log.calories} kcal</td>
+                <td class="text-secondary text-sm">${log.notes || '—'}</td>
+                <td class="text-right">
+                  <button class="btn-icon text-error" onclick="NutritionModule.deleteFoodEntry('${log.id}')" title="Delete">
+                    <i data-lucide="trash-2"></i>
+                  </button>
+                </td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Mobile Card List View -->
+      <div class="mobile-card-list">
+        ${logs.map(log => `
+          <div class="mobile-log-card">
+            <div class="mobile-log-header">
+              <div class="flex items-center gap-2">
+                <span class="badge badge-sage">${log.mealType}</span>
+                <span class="text-xs text-secondary">${log.time}</span>
+              </div>
+              <button class="btn-icon text-error" onclick="NutritionModule.deleteFoodEntry('${log.id}')" title="Delete">
+                <i data-lucide="trash-2"></i>
+              </button>
+            </div>
+            <div class="mobile-meal-main">
+              <span class="font-semibold text-sm text-main">${log.name}</span>
+              ${log.quantity ? `<span class="text-xs text-secondary ml-1">(${log.quantity})</span>` : ''}
+            </div>
+            <div class="mobile-meal-footer mt-2">
+              <div class="flex items-center gap-2">
+                <span class="badge badge-primary font-semibold">+${log.protein}g protein</span>
+                <span class="badge badge-neutral">${log.calories} kcal</span>
+              </div>
+              ${log.notes ? `<span class="text-xs text-secondary mt-1 block">${log.notes}</span>` : ''}
+            </div>
+          </div>
+        `).join('')}
+      </div>
     `;
   },
 
@@ -520,3 +551,4 @@ const NutritionModule = {
     if (m2) m2.remove();
   }
 };
+

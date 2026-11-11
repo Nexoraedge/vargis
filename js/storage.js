@@ -1,5 +1,5 @@
 /**
- * Comeback 90 - Data Storage & Model Manager
+ * Vergis - Data Storage & Model Manager
  * Structured, versioned LocalStorage persistence with validation and backup/restore.
  */
 
@@ -79,7 +79,7 @@ const StorageManager = {
       diet: "Vegetarian",
       environment: "Home workouts",
       budget: "₹1,000–₹2,000 / month",
-      workoutFrequency: "3 strength sessions weekly",
+      workoutFrequency: "4 strength sessions weekly + Sunday sports",
       startDate: today,
     };
 
@@ -527,7 +527,7 @@ const StorageManager = {
   // EXPORT & IMPORT BACKUP
   exportBackupJSON() {
     const backup = {
-      app: 'Comeback 90',
+      app: 'Vergis',
       exportedAt: new Date().toISOString(),
       version: SCHEMA_VERSION,
       data: {
@@ -586,3 +586,4 @@ const StorageManager = {
 
 // Initialize right away
 StorageManager.init();
+

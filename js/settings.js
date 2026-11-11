@@ -1,5 +1,5 @@
 /**
- * Comeback 90 - Settings & Data Management Module
+ * Vergis - Settings & Data Management Module
  * Comprehensive profile configuration, target calibrations, JSON backup & restore.
  */
 
@@ -27,7 +27,7 @@ const SettingsModule = {
         <div class="banner-body">
           <h4 class="banner-title">Client-Side Vault Notice</h4>
           <p class="banner-text">
-            Comeback 90 operates <strong>100% locally in your browser</strong> for complete privacy. No remote databases or servers are used. Please use the <strong>Export JSON Backup</strong> feature periodically to safeguard your logs across browser cache cleans or device transfers.
+            Vergis operates <strong>100% locally in your browser</strong> for complete privacy. No remote databases or servers are used. Please use the <strong>Export JSON Backup</strong> feature periodically to safeguard your logs across browser cache cleans or device transfers.
           </p>
         </div>
       </div>
@@ -89,7 +89,7 @@ const SettingsModule = {
         <!-- Targets & App Configuration -->
         <div class="card">
           <div class="card-header-row border-b pb-3 mb-4">
-            <h3 class="card-title text-base">Targets & Visual Theme</h3>
+            <h3 class="card-title text-base">Targets & Calibrations</h3>
             <span class="badge badge-neutral">Daily Thresholds</span>
           </div>
 
@@ -121,25 +121,19 @@ const SettingsModule = {
             </div>
 
             <div class="form-group mb-4">
-              <label class="form-label">Visual Theme Mode</label>
-              <div class="theme-options-grid">
-                <label class="theme-card ${settings.theme !== 'dark' ? 'selected' : ''}">
-                  <input type="radio" name="app-theme" value="light" ${settings.theme !== 'dark' ? 'checked' : ''} onchange="SettingsModule.changeTheme('light')">
-                  <div class="theme-preview bg-warm-light">
-                    <span class="dot-pri"></span>
-                    <span class="dot-acc"></span>
+              <label class="form-label">Active Visual Theme</label>
+              <div class="p-3 border rounded-lg bg-neutral-light flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <div class="theme-preview bg-warm-light" style="width: 44px; height: 32px; border-radius: 6px;">
+                    <span class="dot-pri" style="width: 12px; height: 12px;"></span>
+                    <span class="dot-acc" style="width: 8px; height: 8px;"></span>
                   </div>
-                  <span class="font-medium text-sm">Warm Ivory (Default)</span>
-                </label>
-
-                <label class="theme-card ${settings.theme === 'dark' ? 'selected' : ''}">
-                  <input type="radio" name="app-theme" value="dark" ${settings.theme === 'dark' ? 'checked' : ''} onchange="SettingsModule.changeTheme('dark')">
-                  <div class="theme-preview bg-dark-forest">
-                    <span class="dot-pri"></span>
-                    <span class="dot-acc"></span>
+                  <div>
+                    <span class="font-semibold text-sm block">Warm Ivory & Forest Green</span>
+                    <span class="text-xs text-secondary">Signature editorial light palette</span>
                   </div>
-                  <span class="font-medium text-sm">Dark Forest (Night)</span>
-                </label>
+                </div>
+                <span class="badge badge-sage">Active</span>
               </div>
             </div>
 
@@ -171,7 +165,7 @@ const SettingsModule = {
 
           <div class="p-4 border rounded-lg bg-neutral-light">
             <h4 class="font-semibold text-primary mb-1">Restore from JSON</h4>
-            <p class="text-sm text-secondary mb-4">Restore or migrate records from a previous Comeback 90 backup file.</p>
+            <p class="text-sm text-secondary mb-4">Restore or migrate records from a previous Vergis backup file.</p>
             <input type="file" id="import-json-file" accept=".json" style="display:none;" onchange="SettingsModule.handleImport(this)">
             <button class="btn btn-outline" onclick="document.getElementById('import-json-file').click()">
               <i data-lucide="upload"></i> Select Backup File
@@ -279,3 +273,4 @@ const SettingsModule = {
     }
   }
 };
+

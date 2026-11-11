@@ -1,5 +1,5 @@
 /**
- * Comeback 90 - Weight and Body Progress Module
+ * Vergis - Weight and Body Progress Module
  * Precision body metric logging, measurement tracking, and private IndexedDB photo journal.
  */
 
@@ -150,38 +150,65 @@ const ProgressModule = {
 
     const reversed = [...logs].reverse();
     return `
-      <table class="data-table">
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Weight</th>
-            <th>Waist</th>
-            <th>Chest</th>
-            <th>Arm</th>
-            <th>Thigh</th>
-            <th>Notes</th>
-            <th class="text-right">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${reversed.map(log => `
+      <!-- Desktop Table View -->
+      <div class="desktop-table-view">
+        <table class="data-table">
+          <thead>
             <tr>
-              <td><strong>${StorageManager.formatDateIndian(log.date)}</strong></td>
-              <td><span class="font-semibold text-primary">${log.weight.toFixed(1)} kg</span></td>
-              <td>${log.waist ? `${log.waist} cm` : '—'}</td>
-              <td>${log.chest ? `${log.chest} cm` : '—'}</td>
-              <td>${log.arm ? `${log.arm} cm` : '—'}</td>
-              <td>${log.thigh ? `${log.thigh} cm` : '—'}</td>
-              <td class="text-secondary text-sm">${log.notes || '—'}</td>
-              <td class="text-right">
-                <button class="btn-icon text-error" onclick="ProgressModule.deleteLog('${log.id}')" title="Delete">
-                  <i data-lucide="trash-2"></i>
-                </button>
-              </td>
+              <th>Date</th>
+              <th>Weight</th>
+              <th>Waist</th>
+              <th>Chest</th>
+              <th>Arm</th>
+              <th>Thigh</th>
+              <th>Notes</th>
+              <th class="text-right">Action</th>
             </tr>
-          `).join('')}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            ${reversed.map(log => `
+              <tr>
+                <td><strong>${StorageManager.formatDateIndian(log.date)}</strong></td>
+                <td><span class="font-semibold text-primary">${log.weight.toFixed(1)} kg</span></td>
+                <td>${log.waist ? `${log.waist} cm` : '—'}</td>
+                <td>${log.chest ? `${log.chest} cm` : '—'}</td>
+                <td>${log.arm ? `${log.arm} cm` : '—'}</td>
+                <td>${log.thigh ? `${log.thigh} cm` : '—'}</td>
+                <td class="text-secondary text-sm">${log.notes || '—'}</td>
+                <td class="text-right">
+                  <button class="btn-icon text-error" onclick="ProgressModule.deleteLog('${log.id}')" title="Delete">
+                    <i data-lucide="trash-2"></i>
+                  </button>
+                </td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Mobile Card List View -->
+      <div class="mobile-card-list">
+        ${reversed.map(log => `
+          <div class="mobile-log-card">
+            <div class="mobile-log-header">
+              <div class="flex items-center gap-2">
+                <span class="font-bold text-base text-primary">${log.weight.toFixed(1)} kg</span>
+                <span class="text-xs text-secondary font-medium">${StorageManager.formatDateIndian(log.date)}</span>
+              </div>
+              <button class="btn-icon text-error" onclick="ProgressModule.deleteLog('${log.id}')" title="Delete">
+                <i data-lucide="trash-2"></i>
+              </button>
+            </div>
+            <div class="mobile-measurements-row mt-2">
+              ${log.waist ? `<span class="measurement-chip">Waist: <b>${log.waist}cm</b></span>` : ''}
+              ${log.chest ? `<span class="measurement-chip">Chest: <b>${log.chest}cm</b></span>` : ''}
+              ${log.arm ? `<span class="measurement-chip">Arm: <b>${log.arm}cm</b></span>` : ''}
+              ${log.thigh ? `<span class="measurement-chip">Thigh: <b>${log.thigh}cm</b></span>` : ''}
+            </div>
+            ${log.notes ? `<p class="mobile-log-notes mt-2">${log.notes}</p>` : ''}
+          </div>
+        `).join('')}
+      </div>
     `;
   },
 
@@ -513,3 +540,4 @@ const ProgressModule = {
     if (m2) m2.remove();
   }
 };
+

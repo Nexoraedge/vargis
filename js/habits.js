@@ -1,5 +1,5 @@
 /**
- * Comeback 90 - Daily Habit Tracker Module
+ * Vergis - Daily Habit Tracker Module
  * Interactive daily discipline checklists, streak calculations, and historical preservation.
  */
 
@@ -299,3 +299,4 @@ const HabitsModule = {
     if (modal) modal.remove();
   }
 };
+

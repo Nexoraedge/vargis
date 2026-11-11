@@ -1,5 +1,5 @@
 /**
- * Comeback 90 - 90-Day Journey Calendar Module
+ * Vergis - 90-Day Journey Calendar Module
  * Interactive 90-day grid with milestone markers (Day 1, 30, 60, 90) and day detail inspections.
  */
 
@@ -248,3 +248,4 @@ const CalendarModule = {
     if (m) m.remove();
   }
 };
+

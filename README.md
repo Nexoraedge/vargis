@@ -1,14 +1,14 @@
-# Comeback 90 — Premium Personal Transformation Dashboard
+# Vergis — Premium Personal Transformation Dashboard
 
 > **Build yourself. One day at a time.**
 
-Comeback 90 is an editorial, mobile-first personal transformation web application and 90-day command center. Built with a warm-light aesthetic inspired by premium wellness brands, it provides an all-in-one hub to track physique, body weight, vegetarian nutrition, calisthenics & backpack resistance workouts, barrier-repair skincare, daily discipline habits, and long-term analytics.
+Vergis is an editorial, mobile-first personal transformation web application and 90-day command center. Built with a warm-light aesthetic inspired by premium wellness brands, it provides an all-in-one hub to track physique, body weight, vegetarian nutrition, calisthenics & backpack resistance workouts, barrier-repair skincare, daily discipline habits, and long-term analytics.
 
 ---
 
 ## 🌿 Design System & Aesthetic
 
-Comeback 90 deliberately rejects generic blue-purple SaaS gradients in favor of an **editorial, tactile, warm-light identity**:
+Vergis deliberately rejects generic blue-purple SaaS gradients in favor of an **editorial, tactile, warm-light identity**:
 
 - **Main Background**: `#F7F5EF` (Warm Ivory)
 - **Card Background**: `#FFFFFF`
@@ -65,7 +65,7 @@ Designed specifically for primary usage on mobile devices (iPhone Safari & Andro
 
 ## 🏋️ Workouts & Training System
 
-Comeback 90 enforces a 3-day weekly strength split alternating between **Workout A** and **Workout B**:
+Vergis enforces a 3-day weekly strength split alternating between **Workout A** and **Workout B**:
 
 - **Monday — Workout A (Chest, Legs, Core)**:
   - Standard Push-ups: 3 sets × 12–15 reps
@@ -149,7 +149,7 @@ Open your browser at `http://localhost:8080`.
 
 ## ☁️ Deployment to Vercel
 
-Comeback 90 is a zero-dependency static web application, perfectly optimized for instantaneous Vercel deployment:
+Vergis is a zero-dependency static web application, perfectly optimized for instantaneous Vercel deployment:
 
 ### Method 1: Vercel CLI
 ```bash
@@ -165,7 +165,7 @@ vercel
    ```bash
    git init
    git add .
-   git commit -m "feat: initial Comeback 90 release"
+   git commit -m "feat: initial Vergis release"
    git remote add origin https://github.com/your-username/comeback-90.git
    git push -u origin main
    ```
@@ -173,3 +173,4 @@ vercel
 3. Click **Add New Project** and select your repository.
 4. Framework Preset: **Other** (Root directory `./`).
 5. Click **Deploy**. Vercel will build and assign an instant production URL with automatic HTTPS and edge CDN caching.
+

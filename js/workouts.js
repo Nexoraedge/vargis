@@ -1,5 +1,5 @@
 /**
- * Comeback 90 - Workout Tracker Module
+ * Vergis - Workout Tracker Module
  * Comprehensive home-calisthenics and backpack resistance tracking system.
  */
 
@@ -8,13 +8,13 @@ const WorkoutModule = {
   timerSecondsRemaining: 0,
 
   weeklySchedule: [
-    { dayIndex: 0, dayName: 'Sunday', plan: 'Volleyball or Active Rest', type: 'Rest/Sport', description: 'Recreational volleyball session or restorative rest. Enjoy movement.' },
-    { dayIndex: 1, dayName: 'Monday', plan: 'Workout A (Chest, Legs, Core)', type: 'Workout A', description: 'Strength foundation: Push-ups, backpack squats, glute bridges, rows, plank.' },
-    { dayIndex: 2, dayName: 'Tuesday', plan: 'Recovery / 30-45m Walking', type: 'Recovery', description: 'Active recovery: gentle walking, joint decompression, hydration.' },
-    { dayIndex: 3, dayName: 'Wednesday', plan: 'Workout B (Shoulders, Back, Lower)', type: 'Workout B', description: 'Shoulder press, pike push-ups, lunges, calf raises, side planks.' },
-    { dayIndex: 4, dayName: 'Thursday', plan: 'Rest / Mobility Work', type: 'Rest', description: 'Rest day: hip mobility, wrist stretches, deep sleep.' },
-    { dayIndex: 5, dayName: 'Friday', plan: 'Alternate Workout A / B', type: 'Alternate', description: 'Alternate between Workout A and B based on the current week.' },
-    { dayIndex: 6, dayName: 'Saturday', plan: 'Light Activity / Recovery', type: 'Recovery', description: 'Casual movement, stretching, mobility work or light outdoor walk.' }
+    { dayIndex: 0, dayName: 'Sunday', plan: 'Sunday Sports / Volleyball', type: 'Sports', description: 'Recreational volleyball match / outdoor sports. Fun athleticism & agility.' },
+    { dayIndex: 1, dayName: 'Monday', plan: 'Workout A (Chest, Legs, Core)', type: 'Workout A', description: 'Strength session 1: Push-ups, backpack squats, glute bridges, rows, plank.' },
+    { dayIndex: 2, dayName: 'Tuesday', plan: 'Workout B (Shoulders, Back, Calves)', type: 'Workout B', description: 'Strength session 2: Pike push-ups, backpack rows, reverse lunges, shoulder press, calves.' },
+    { dayIndex: 3, dayName: 'Wednesday', plan: 'Active Recovery / 30-45m Walk', type: 'Recovery', description: 'Midweek active recovery: gentle walking, joint decompression, hydration.' },
+    { dayIndex: 4, dayName: 'Thursday', plan: 'Workout A (Chest, Legs, Core)', type: 'Workout A', description: 'Strength session 3: Progressive overload on push-ups, squats, rows, and core.' },
+    { dayIndex: 5, dayName: 'Friday', plan: 'Workout B (Shoulders, Back, Calves)', type: 'Workout B', description: 'Strength session 4: Strict shoulder press, rows, lunges, calf raises, side plank.' },
+    { dayIndex: 6, dayName: 'Saturday', plan: 'Rest & Deep Mobility', type: 'Rest', description: 'Rest day: hip mobility, wrist stretches, deep sleep before Sunday sports.' }
   ],
 
   workoutRoutines: {
@@ -45,19 +45,7 @@ const WorkoutModule = {
   getTodayPlannedWorkout() {
     const today = new Date();
     const dayOfWeek = today.getDay(); // 0 is Sun, 1 is Mon...
-    const scheduleItem = this.weeklySchedule.find(s => s.dayIndex === dayOfWeek);
-
-    if (scheduleItem.type === 'Alternate') {
-      const start = StorageManager.getProfile().startDate || StorageManager.getTodayDateString();
-      const prog = StorageManager.calculateDay(start);
-      const weekNumber = Math.ceil(prog.currentDay / 7);
-      const isOddWeek = weekNumber % 2 !== 0;
-      return {
-        ...scheduleItem,
-        resolvedWorkout: isOddWeek ? 'Workout A' : 'Workout B',
-        weekNumber
-      };
-    }
+    const scheduleItem = this.weeklySchedule.find(s => s.dayIndex === dayOfWeek) || this.weeklySchedule[1];
     return {
       ...scheduleItem,
       resolvedWorkout: scheduleItem.type.startsWith('Workout') ? scheduleItem.type : null
@@ -78,9 +66,9 @@ const WorkoutModule = {
       <div class="page-header animate-fadeIn">
         <div class="page-title-row">
           <div>
-            <span class="badge badge-sage">Calisthenics & Home Training</span>
+            <span class="badge badge-sage">Calisthenics & Resistance</span>
             <h1 class="page-title">Workouts & Strength</h1>
-            <p class="page-subtitle">3 weekly strength sessions + active recovery. Consistency over extreme fatigue.</p>
+            <p class="page-subtitle">4 weekly strength sessions + Sunday sports. Recovery on Wed & Sat.</p>
           </div>
           <button class="btn btn-primary" id="btn-quick-log-workout">
             <i data-lucide="plus-circle"></i> Log Workout
@@ -95,8 +83,8 @@ const WorkoutModule = {
             <i data-lucide="calendar" class="text-primary"></i>
           </div>
           <div class="metric-content">
-            <span class="metric-label">Today's Schedule</span>
-            <span class="metric-value font-medium" style="font-size: 1.15rem;">${planned.plan}</span>
+            <span class="metric-label">Today's Plan</span>
+            <span class="metric-value font-medium" style="font-size: 1.1rem;">${planned.plan}</span>
             <span class="metric-sub">${planned.description}</span>
           </div>
         </div>
@@ -108,7 +96,7 @@ const WorkoutModule = {
           <div class="metric-content">
             <span class="metric-label">Push-up Best Record</span>
             <span class="metric-value">${profile.pushupPR || 48} <span class="unit">reps</span></span>
-            <span class="metric-sub">Target: Maintain clean form</span>
+            <span class="metric-sub">Strict form baseline</span>
           </div>
         </div>
 
@@ -118,8 +106,8 @@ const WorkoutModule = {
           </div>
           <div class="metric-content">
             <span class="metric-label">Weekly Consistency</span>
-            <span class="metric-value">${thisWeekWorkouts} <span class="unit">/ 3 sessions</span></span>
-            <span class="metric-sub">${thisWeekWorkouts >= 3 ? 'Target achieved this week!' : `${3 - thisWeekWorkouts} remaining this week`}</span>
+            <span class="metric-value">${thisWeekWorkouts} <span class="unit">/ 4 sessions</span></span>
+            <span class="metric-sub">${thisWeekWorkouts >= 4 ? 'Target achieved this week!' : `${4 - thisWeekWorkouts} remaining this week`}</span>
           </div>
         </div>
       </div>
@@ -274,34 +262,59 @@ const WorkoutModule = {
     }
 
     return `
-      <table class="data-table">
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Type</th>
-            <th>Duration</th>
-            <th>Push-ups Logged</th>
-            <th>Notes</th>
-            <th class="text-right">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${logs.map(log => `
+      <!-- Desktop Table -->
+      <div class="desktop-table-view">
+        <table class="data-table">
+          <thead>
             <tr>
-              <td><strong>${StorageManager.formatDateIndian(log.date)}</strong></td>
-              <td><span class="badge badge-sage">${log.workoutType}</span></td>
-              <td>${log.durationMinutes} mins</td>
-              <td>${log.pushupsCompleted ? `<strong>${log.pushupsCompleted}</strong> reps` : '—'}</td>
-              <td class="text-secondary text-sm">${log.notes || '—'}</td>
-              <td class="text-right">
-                <button class="btn-icon text-error" onclick="WorkoutModule.deleteWorkout('${log.id}')" title="Delete">
-                  <i data-lucide="trash-2"></i>
-                </button>
-              </td>
+              <th>Date</th>
+              <th>Type</th>
+              <th>Duration</th>
+              <th>Push-ups Logged</th>
+              <th>Notes</th>
+              <th class="text-right">Actions</th>
             </tr>
-          `).join('')}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            ${logs.map(log => `
+              <tr>
+                <td><strong>${StorageManager.formatDateIndian(log.date)}</strong></td>
+                <td><span class="badge badge-sage">${log.workoutType}</span></td>
+                <td>${log.durationMinutes} mins</td>
+                <td>${log.pushupsCompleted ? `<strong>${log.pushupsCompleted}</strong> reps` : '—'}</td>
+                <td class="text-secondary text-sm">${log.notes || '—'}</td>
+                <td class="text-right">
+                  <button class="btn-icon text-error" onclick="WorkoutModule.deleteWorkout('${log.id}')" title="Delete">
+                    <i data-lucide="trash-2"></i>
+                  </button>
+                </td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Mobile Card List -->
+      <div class="mobile-card-list">
+        ${logs.map(log => `
+          <div class="mobile-log-card">
+            <div class="mobile-log-header">
+              <div class="flex items-center gap-2">
+                <span class="badge badge-sage">${log.workoutType}</span>
+                <span class="text-xs text-secondary font-medium">${StorageManager.formatDateIndian(log.date)}</span>
+              </div>
+              <button class="btn-icon text-error" onclick="WorkoutModule.deleteWorkout('${log.id}')" title="Delete">
+                <i data-lucide="trash-2"></i>
+              </button>
+            </div>
+            <div class="mobile-log-metrics">
+              <span class="log-metric-pill"><i data-lucide="clock" class="pill-icon"></i> ${log.durationMinutes}m</span>
+              ${log.pushupsCompleted ? `<span class="log-metric-pill badge-champagne"><i data-lucide="zap" class="pill-icon"></i> ${log.pushupsCompleted} push-ups</span>` : ''}
+            </div>
+            ${log.notes ? `<p class="mobile-log-notes">${log.notes}</p>` : ''}
+          </div>
+        `).join('')}
+      </div>
     `;
   },
 
@@ -494,3 +507,4 @@ const WorkoutModule = {
     if (modal) modal.remove();
   }
 };
+

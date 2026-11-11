@@ -1,5 +1,5 @@
 /**
- * Comeback 90 - Home Dashboard Module
+ * Vergis - Home Dashboard Module
  * Central Command Center bringing together daily schedule, quick actions,
  * interactive checklists, trajectory charts, and holistic progress meters.
  */
@@ -151,8 +151,8 @@ const DashboardModule = {
           </div>
           <div class="metric-content">
             <span class="metric-label">Weekly Workouts</span>
-            <span class="metric-value">${thisWeekWorkouts} <span class="unit">/ 3</span></span>
-            <span class="metric-sub">${thisWeekWorkouts >= 3 ? 'Weekly goal hit!' : `${3 - thisWeekWorkouts} remaining`}</span>
+            <span class="metric-value">${thisWeekWorkouts} <span class="unit">/ 4</span></span>
+            <span class="metric-sub">${thisWeekWorkouts >= 4 ? 'Weekly goal hit!' : `${4 - thisWeekWorkouts} remaining`}</span>
           </div>
         </div>
 
@@ -464,3 +464,4 @@ const DashboardModule = {
     if (m) m.remove();
   }
 };
+
