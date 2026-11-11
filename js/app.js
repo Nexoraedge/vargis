@@ -20,7 +20,10 @@ const App = {
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('./sw.js')
-          .then(reg => console.log('Vergis SW registered:', reg.scope))
+          .then(reg => {
+            reg.update().catch(() => {});
+            console.log('Vergis SW registered:', reg.scope);
+          })
           .catch(err => console.log('SW registration failed:', err));
       });
     }
