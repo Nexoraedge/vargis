@@ -52,6 +52,7 @@ const DashboardModule = {
     // Time-based greeting
     const greeting = this.getTimeGreeting();
 
+    const smartNudge = this.getSmartNudge(today, nutritionLogs, dailyLog, settings, skincareLog);
     const showPwaBanner = !localStorage.getItem('vergis_pwa_dismissed') && !window.matchMedia('(display-mode: standalone)').matches;
 
     container.innerHTML = `
@@ -87,6 +88,41 @@ const DashboardModule = {
           </button>
         </div>
       </div>
+
+      <!-- Smart Contextual Nudge Banner -->
+      ${smartNudge ? `
+        <div class="smart-nudge-card animate-fadeIn">
+          <div class="smart-nudge-content">
+            <div class="smart-nudge-badge-row">
+              <span class="badge badge-champagne"><i data-lucide="${smartNudge.icon}" style="width:13px; height:13px;"></i> ${smartNudge.badge}</span>
+              ${'Notification' in window && Notification.permission === 'default' ? `
+                <button type="button" class="btn btn-xs btn-outline" style="padding:2px 8px; font-size:0.75rem;" onclick="DashboardModule.requestNotificationPermission()">
+                  <i data-lucide="bell" style="width:11px; height:11px;"></i> Enable Alerts
+                </button>
+              ` : '<span class="text-xs text-secondary">Right Now</span>'}
+            </div>
+            <h4 class="smart-nudge-title">${smartNudge.title}</h4>
+            <p class="smart-nudge-text">${smartNudge.message}</p>
+          </div>
+          <button class="btn btn-primary btn-sm smart-nudge-btn" onclick="${smartNudge.actionFn}">
+            ${smartNudge.actionText}
+          </button>
+        </div>
+      ` : `
+        <div class="smart-nudge-card smart-nudge-ontrack animate-fadeIn">
+          <div class="flex items-center justify-between w-full">
+            <div class="flex items-center gap-2">
+              <i data-lucide="check-circle-2" class="text-success" style="width:18px; height:18px;"></i>
+              <span class="font-medium text-sm text-primary">Hydration & nutrition on track for this hour! Great discipline.</span>
+            </div>
+            ${'Notification' in window && Notification.permission === 'default' ? `
+              <button type="button" class="btn btn-xs btn-outline" style="padding:2px 8px; font-size:0.75rem;" onclick="DashboardModule.requestNotificationPermission()">
+                <i data-lucide="bell" style="width:11px; height:11px;"></i> Remind Me
+              </button>
+            ` : ''}
+          </div>
+        </div>
+      `}
 
       <!-- Quick Action Buttons Strip -->
       <div class="quick-actions-bar mt-4 mb-6">
@@ -479,6 +515,106 @@ const DashboardModule = {
     if (existing) existing.remove();
     document.body.insertAdjacentHTML('beforeend', modalHtml);
     lucide.createIcons();
+  },
+
+  getSmartNudge(today, todayLogs, dailyLog, settings, skincareLog) {
+    const currentProtein = (todayLogs || []).reduce((sum, item) => sum + (item.protein || 0), 0);
+    const currentWater = dailyLog ? (dailyLog.waterMl || 0) : 0;
+    const targetWater = settings.waterTarget || 2500;
+    const targetProtein = settings.proteinTarget || 85;
+
+    const now = new Date();
+    const hour = now.getHours();
+
+    // 1. Afternoon Desk Snack Window (4:00 PM – 7:00 PM)
+    if (hour >= 16 && hour < 19) {
+      const hasSnack = (todayLogs || []).some(item => item.mealType === 'Evening Snack' || (item.name && item.name.toLowerCase().includes('chana')));
+      if (!hasSnack) {
+        return {
+          type: 'snack',
+          icon: 'utensils',
+          badge: 'Desk Snack Window',
+          title: 'Afternoon Fuel: 50g Roasted Chana or Peanuts',
+          message: 'Support your lean bulk with clean afternoon protein. A palmful of roasted chana delivers +9.5g protein with zero grease.',
+          actionText: '+ Log Roasted Chana (+9.5g P)',
+          actionFn: "NutritionModule.quickLogFood('Roasted Chana', 185, 9.5, '50 g handful', 'Evening Snack')"
+        };
+      }
+    }
+
+    // 2. Hydration Check (11 AM – 9 PM)
+    let expectedWater = 0;
+    if (hour >= 11 && hour < 14) expectedWater = 750;
+    else if (hour >= 14 && hour < 17) expectedWater = 1250;
+    else if (hour >= 17 && hour < 21) expectedWater = 1800;
+
+    if (expectedWater > 0 && currentWater < expectedWater) {
+      return {
+        type: 'water',
+        icon: 'droplet',
+        badge: 'Hydration Check',
+        title: `Hydration reminder (${currentWater}ml / ${targetWater}ml)`,
+        message: 'Drink a tall glass of water right now to maintain high cellular energy, recovery, and nutrient absorption.',
+        actionText: '+250ml Water Now',
+        actionFn: 'NutritionModule.adjustWater(250)'
+      };
+    }
+
+    // 3. Late Night Protein Check (9:00 PM – 11:30 PM)
+    if (hour >= 21) {
+      if (currentProtein < targetProtein - 5) {
+        const gap = Math.round((targetProtein - currentProtein) * 10) / 10;
+        return {
+          type: 'protein',
+          icon: 'moon',
+          badge: 'Night Recovery',
+          title: `Daily Protein Gap: ${currentProtein}g / ${targetProtein}g`,
+          message: `You are ${gap}g short of your daily target. A glass of warm milk (+8g casein protein) supports muscle synthesis while you sleep.`,
+          actionText: '+ Log 250ml Warm Milk (+8g P)',
+          actionFn: "NutritionModule.quickLogFood('Cow Milk (Toned)', 150, 8.0, '250 ml glass', 'Optional Late Snack')"
+        };
+      }
+    }
+
+    // 4. Morning Sunscreen Reminder (8:30 AM – 4:30 PM)
+    if (hour >= 8 && hour < 16) {
+      const amDone = skincareLog && skincareLog.amWater && skincareLog.amMoisturizer && skincareLog.amSunscreen;
+      if (!amDone) {
+        return {
+          type: 'sunscreen',
+          icon: 'sun',
+          badge: 'Sun Protection',
+          title: 'Apply Morning SPF 50 Sunscreen',
+          message: 'Daylight UV is active. Protect your facial skin, neck, and ears with broad-spectrum SPF 50 sunscreen.',
+          actionText: 'Mark Sunscreen Applied',
+          actionFn: 'SkincareModule.quickCheckAM()'
+        };
+      }
+    }
+
+    return null;
+  },
+
+  requestNotificationPermission() {
+    if (!('Notification' in window)) {
+      App.showToast('Browser notifications are not supported on this device', 'warning');
+      return;
+    }
+    Notification.requestPermission().then((perm) => {
+      if (perm === 'granted') {
+        App.showToast('🔔 Phone reminders enabled for water & snacks!', 'success');
+        if ('vibrate' in navigator) navigator.vibrate([40, 80]);
+        try {
+          new Notification('Vergis Reminders Active', {
+            body: 'We will send gentle nudges for your water and afternoon snacks.',
+            icon: './assets/icon-192.png'
+          });
+        } catch (e) {}
+        App.refreshCurrentView();
+      } else {
+        App.showToast('Notification permission was dismissed', 'info');
+      }
+    });
   },
 
   closeModal() {

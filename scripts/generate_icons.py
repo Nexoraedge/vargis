@@ -130,3 +130,4 @@ print("Generated assets/icon-512.png")
 with open('assets/apple-touch-icon.png', 'wb') as f:
     f.write(make_icon(180))
 print("Generated assets/apple-touch-icon.png")
+

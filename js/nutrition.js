@@ -186,6 +186,9 @@ const NutritionModule = {
             <h3 class="card-title">Preloaded Indian Meal Blueprint</h3>
             <p class="card-subtitle">Designed for ₹1,000–₹2,000 monthly budget. One-click log into your daily ledger.</p>
           </div>
+          <button class="btn btn-primary btn-sm" onclick="NutritionModule.logFullDayBlueprint()" title="Log all 4 staple daily meals at once">
+            <i data-lucide="zap"></i> 1-Tap Log Full Day (~82g P)
+          </button>
         </div>
 
         <div class="meal-blueprint-grid mt-4">
@@ -347,6 +350,35 @@ const NutritionModule = {
     StorageManager.saveDailyLog(today, daily);
     if ('vibrate' in navigator) navigator.vibrate(25);
     App.showToast(`Water updated: ${(newTotal / 1000).toFixed(2)} Litres`, 'info');
+    App.refreshCurrentView();
+  },
+
+  logFullDayBlueprint() {
+    const today = StorageManager.getTodayDateString();
+    const existing = StorageManager.getNutritionLogs(today);
+    if (existing && existing.length > 0) {
+      if (!confirm(`You already have ${existing.length} meal(s) logged today. Do you want to log the full day blueprint (~82g protein)?`)) {
+        return;
+      }
+    }
+
+    const coreMeals = this.mealBlueprints.filter(mb => mb.type !== 'Optional Late Snack');
+    let totalP = 0;
+    coreMeals.forEach(meal => {
+      StorageManager.addNutritionLog({
+        date: today,
+        mealType: meal.type,
+        name: meal.name,
+        calories: meal.estCalories,
+        protein: meal.estProtein,
+        quantity: meal.items,
+        notes: 'Full day blueprint 1-tap log'
+      });
+      totalP += meal.estProtein;
+    });
+
+    if ('vibrate' in navigator) navigator.vibrate([40, 60, 40]);
+    App.showToast(`⚡ Full day blueprint logged: +${totalP}g protein!`, 'success');
     App.refreshCurrentView();
   },
 

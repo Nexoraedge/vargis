@@ -216,6 +216,18 @@ const SkincareModule = {
     App.refreshCurrentView();
   },
 
+  quickCheckAM() {
+    const today = StorageManager.getTodayDateString();
+    StorageManager.saveSkincareLog(today, {
+      amWater: true,
+      amMoisturizer: true,
+      amSunscreen: true
+    });
+    if ('vibrate' in navigator) navigator.vibrate([30, 40]);
+    App.showToast('☀️ Morning skincare & SPF 50 marked complete!', 'success');
+    App.refreshCurrentView();
+  },
+
   updateProductStatus(id, newStatus) {
     StorageManager.updateProduct(id, { status: newStatus });
     App.showToast('Product status updated', 'success');

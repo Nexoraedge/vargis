@@ -19,6 +19,8 @@ const ProgressModule = {
     const to90Target = Math.max(0, Math.round((target90Weight - currentWeight) * 10) / 10);
     const progressPct = Math.min(100, Math.max(0, Math.round(((currentWeight - startWeight) / (target90Weight - startWeight)) * 100)));
 
+    const velocityData = this.calculateVelocityAndMilestones(weightLogs, startWeight, target90Weight, longTermTarget);
+
     // Fetch photos from IndexedDB
     try {
       this.activePhotoList = await PhotoStore.getAllPhotos();
@@ -86,6 +88,42 @@ const ProgressModule = {
         </div>
       </div>
 
+      <!-- Velocity & Milestone Forecast Card -->
+      <div class="card mt-6">
+        <div class="card-header-row mb-3">
+          <div>
+            <h3 class="card-title">Lean-Bulk Velocity & Milestone Forecast</h3>
+            <p class="card-subtitle">Real-time pacing and milestone forecast based on clean lean accretion.</p>
+          </div>
+          <span class="badge ${velocityData.badgeClass}">${velocityData.badgeText}</span>
+        </div>
+
+        <div class="forecast-metrics-grid">
+          <div class="forecast-box">
+            <span class="forecast-box-label">Current Weekly Pace</span>
+            <span class="forecast-box-value text-primary">+${velocityData.weeklyVelocity.toFixed(2)} <span class="unit">kg/wk</span></span>
+            <span class="forecast-box-sub">Target: +0.30 to +0.40 kg/wk</span>
+          </div>
+
+          <div class="forecast-box">
+            <span class="forecast-box-label">Milestone 1 (62.0 kg)</span>
+            <span class="forecast-box-value">${velocityData.target62Date}</span>
+            <span class="forecast-box-sub">Initial phase breakthrough</span>
+          </div>
+
+          <div class="forecast-box">
+            <span class="forecast-box-label">Milestone 2 (65.0 kg)</span>
+            <span class="forecast-box-value text-champagne-dark">${velocityData.target65Date}</span>
+            <span class="forecast-box-sub">Primary target range</span>
+          </div>
+        </div>
+
+        <div class="forecast-advice mt-4">
+          <i data-lucide="sparkles" class="text-champagne-dark" style="width:16px; height:16px; flex-shrink:0;"></i>
+          <span>${velocityData.advice}</span>
+        </div>
+      </div>
+
       <!-- Trajectory Comparison Card -->
       <div class="card mt-6">
         <div class="card-header-row mb-4">
@@ -136,6 +174,84 @@ const ProgressModule = {
 
     lucide.createIcons();
     this.renderWeightChart(weightLogs, startWeight, target90Weight);
+  },
+
+  calculateVelocityAndMilestones(logs, startWeight, targetWeight, longTermTarget) {
+    if (!logs || logs.length === 0) {
+      return {
+        hasData: false,
+        weeklyVelocity: 0.35,
+        target62Date: '3–4 weeks projected',
+        target65Date: '8–10 weeks projected',
+        badgeClass: 'badge-success',
+        badgeText: 'Optimal Lean Bulk',
+        advice: 'Targeting a lean surplus (+0.30–0.40 kg/week) allows optimal muscle protein synthesis with minimal unwanted body fat.'
+      };
+    }
+
+    const sorted = [...logs].sort((a, b) => new Date(a.date) - new Date(b.date));
+    const latest = sorted[sorted.length - 1];
+    const currentWeight = latest.weight;
+
+    let weeklyVelocity = 0.35;
+    if (sorted.length >= 2) {
+      const earliest = sorted[0];
+      const msDiff = new Date(latest.date) - new Date(earliest.date);
+      const daysDiff = msDiff / (1000 * 60 * 60 * 24);
+      if (daysDiff >= 3) {
+        const weightDiff = latest.weight - earliest.weight;
+        const calcRate = (weightDiff / daysDiff) * 7;
+        if (calcRate > 0) {
+          weeklyVelocity = Math.round(calcRate * 100) / 100;
+        }
+      }
+    }
+
+    // Estimate Milestone 1: 62.0 kg
+    const to62 = 62.0 - currentWeight;
+    let target62Date = 'Achieved! 🏆';
+    if (to62 > 0) {
+      const weeksTo62 = to62 / (weeklyVelocity || 0.35);
+      const d62 = new Date();
+      d62.setDate(d62.getDate() + Math.round(weeksTo62 * 7));
+      target62Date = `${StorageManager.formatDateIndian(d62.toISOString().split('T')[0])} (~${Math.ceil(weeksTo62)} wks)`;
+    }
+
+    // Estimate Milestone 2: 65.0 kg
+    const to65 = targetWeight - currentWeight;
+    let target65Date = 'Achieved! 🏆';
+    if (to65 > 0) {
+      const weeksTo65 = to65 / (weeklyVelocity || 0.35);
+      const d65 = new Date();
+      d65.setDate(d65.getDate() + Math.round(weeksTo65 * 7));
+      target65Date = `${StorageManager.formatDateIndian(d65.toISOString().split('T')[0])} (~${Math.ceil(weeksTo65)} wks)`;
+    }
+
+    // Pacing evaluation
+    let badgeClass = 'badge-success';
+    let badgeText = 'Optimal Lean Bulk';
+    let advice = 'Your weight gain rate is in the physiological sweet spot (0.25–0.45 kg/week). Clean muscle tissue with minimal waist expansion.';
+
+    if (weeklyVelocity < 0.25) {
+      badgeClass = 'badge-sage';
+      badgeText = 'Conservative Pace';
+      advice = 'Gain rate is modest (<0.25 kg/wk). Consider adding a banana + 2 tbsp peanut butter (+200 kcal) to accelerate progress.';
+    } else if (weeklyVelocity > 0.45) {
+      badgeClass = 'badge-champagne';
+      badgeText = 'Rapid Surplus';
+      advice = 'Gaining at a fast pace (>0.45 kg/wk). Ensure heavy push-up and backpack volume to channel surplus into muscle tissue.';
+    }
+
+    return {
+      hasData: true,
+      currentWeight,
+      weeklyVelocity,
+      target62Date,
+      target65Date,
+      badgeClass,
+      badgeText,
+      advice
+    };
   },
 
   renderWeightLogsTable(logs) {

@@ -552,6 +552,125 @@ input, select, textarea {
   margin-top: 4px;
 }
 
+/* Smart Contextual Nudge Banner */
+.smart-nudge-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--champagne-dark);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 20px;
+}
+
+@media (min-width: 640px) {
+  .smart-nudge-card {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+  }
+}
+
+.smart-nudge-content {
+  flex: 1;
+}
+
+.smart-nudge-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.smart-nudge-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 3px;
+}
+
+.smart-nudge-text {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.smart-nudge-btn {
+  flex-shrink: 0;
+  align-self: flex-start;
+  white-space: nowrap;
+}
+
+@media (min-width: 640px) {
+  .smart-nudge-btn {
+    align-self: center;
+  }
+}
+
+.smart-nudge-ontrack {
+  border-left: 4px solid var(--success);
+  padding: 12px 18px;
+}
+
+/* Forecast Metrics Grid */
+.forecast-metrics-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+@media (min-width: 640px) {
+  .forecast-metrics-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.forecast-box {
+  padding: 14px;
+  background-color: var(--bg-neutral-light);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.forecast-box-label {
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.forecast-box-value {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.forecast-box-sub {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+.forecast-advice {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 14px;
+  background-color: var(--bg-neutral-light);
+  border-radius: var(--radius-sm);
+  font-size: 0.84rem;
+  color: var(--text-main);
+  line-height: 1.4;
+}
+
 /* Dashboard Greeting */
 .dashboard-header {
   display: flex;
