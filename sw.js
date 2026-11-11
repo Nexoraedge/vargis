@@ -1,8 +1,9 @@
-// Vergis Service Worker
-const CACHE_NAME = 'comeback90-v1';
+// Comeback 90 - Service Worker v3
+const CACHE_NAME = 'comeback90-v3';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
+  './manifest.json',
   './css/style.css',
   './js/app.js',
   './js/storage.js',
@@ -16,7 +17,6 @@ const ASSETS_TO_CACHE = [
   './js/calendar.js',
   './js/analytics.js',
   './js/settings.js',
-  './manifest.json',
   './assets/icon.svg',
   './assets/favicon.svg'
 ];
@@ -40,12 +40,36 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
-  // Navigation and network-first for HTML, stale-while-revalidate for local assets
   if (event.request.method !== 'GET') return;
+
+  const url = new URL(event.request.url);
+
+  // 1. Navigation requests (opening the PWA from Home Screen or refreshing)
+  if (event.request.mode === 'navigate' || url.pathname.endsWith('/index.html') || url.pathname === '/') {
+    event.respondWith(
+      fetch(event.request)
+        .then((networkResponse) => {
+          if (networkResponse && networkResponse.status === 200) {
+            const clone = networkResponse.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put('./index.html', clone));
+          }
+          return networkResponse;
+        })
+        .catch(async () => {
+          // If offline or network fails, serve index.html from cache
+          const cached = await caches.match('./index.html') || await caches.match('./') || await caches.match('/');
+          if (cached) return cached;
+          return new Response('Offline - please reconnect to internet', { status: 503, headers: { 'Content-Type': 'text/plain' } });
+        })
+    );
+    return;
+  }
+
+  // 2. Static asset requests
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
       if (cachedResponse) {
-        // Fetch background update
+        // Fetch background update for stale-while-revalidate
         fetch(event.request).then((networkResponse) => {
           if (networkResponse && networkResponse.status === 200) {
             caches.open(CACHE_NAME).then((cache) => cache.put(event.request, networkResponse));
@@ -53,8 +77,21 @@ self.addEventListener('fetch', (event) => {
         }).catch(() => {});
         return cachedResponse;
       }
-      return fetch(event.request);
+
+      return fetch(event.request)
+        .then((networkResponse) => {
+          if (networkResponse && networkResponse.status === 200) {
+            const clone = networkResponse.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
+          }
+          return networkResponse;
+        })
+        .catch(async () => {
+          // Fallback if network fails
+          const match = await caches.match(event.request);
+          if (match) return match;
+          return new Response('', { status: 404 });
+        });
     })
   );
 });
-
