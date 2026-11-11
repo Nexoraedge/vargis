@@ -9,7 +9,7 @@ if (typeof window !== 'undefined' && (!window.lucide || typeof window.lucide.cre
 }
 
 const PhotoStore = {
-  dbName: 'comeback90_db',
+  dbName: 'vergis_db',
   dbVersion: 1,
   storeName: 'progress_photos',
   db: null,

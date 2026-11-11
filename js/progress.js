@@ -67,7 +67,7 @@ const ProgressModule = {
             <span class="metric-value ${weightGained >= 0 ? 'text-primary' : 'text-error'}">
               ${weightGained >= 0 ? '+' : ''}${weightGained.toFixed(1)} <span class="unit">kg</span>
             </span>
-            <span class="metric-sub">${to90Target > 0 ? `${to90Target.toFixed(1)} kg to 90-day goal` : '90-Day goal achieved!'}</span>
+            <span class="metric-sub">${to90Target > 0 ? `${to90Target.toFixed(1)} kg to primary target` : 'Primary target achieved!'}</span>
           </div>
         </div>
 
@@ -76,7 +76,7 @@ const ProgressModule = {
             <i data-lucide="target" class="text-primary"></i>
           </div>
           <div class="metric-content">
-            <span class="metric-label">90-Day Goal Progress</span>
+            <span class="metric-label">Target Progress</span>
             <span class="metric-value">${progressPct}% <span class="unit">(${target90Weight} kg)</span></span>
             <div class="progress-bar-bg mt-2">
               <div class="progress-bar-fill" style="width: ${progressPct}%; background-color: var(--primary);"></div>
@@ -90,7 +90,7 @@ const ProgressModule = {
       <div class="card mt-6">
         <div class="card-header-row mb-4">
           <div>
-            <h3 class="card-title">90-Day Bulking Trajectory</h3>
+            <h3 class="card-title">Lean Mass Trajectory</h3>
             <p class="card-subtitle">Healthy physiological lean mass growth (~0.25 - 0.5 kg weekly surplus).</p>
           </div>
         </div>
@@ -274,7 +274,7 @@ const ProgressModule = {
             pointHoverRadius: 6
           },
           {
-            label: '90-Day Target (65 kg)',
+            label: 'Primary Target (65 kg)',
             data: targetLine.length > 0 ? targetLine : [targetWeight],
             borderColor: '#C7A878',
             borderWidth: 1.5,

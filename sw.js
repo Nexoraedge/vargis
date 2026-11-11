@@ -1,5 +1,5 @@
-// Comeback 90 - Service Worker v3
-const CACHE_NAME = 'comeback90-v3';
+// Vergis - Service Worker v4
+const CACHE_NAME = 'vergis-v4';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',

@@ -1,7 +1,7 @@
 {
-  "name": "Comeback 90 — Personal Transformation",
-  "short_name": "Comeback 90",
-  "description": "Premium 90-day personal transformation command center. Track physique, workouts, vegetarian nutrition, skincare, and daily habits.",
+  "name": "Vergis — Personal Transformation",
+  "short_name": "Vergis",
+  "description": "Premium personal transformation command center. Track physique, workouts, vegetarian nutrition, skincare, and daily habits.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",

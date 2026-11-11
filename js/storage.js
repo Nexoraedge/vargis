@@ -4,16 +4,16 @@
  */
 
 const STORAGE_KEYS = {
-  VERSION: 'comeback90_schema_version',
-  PROFILE: 'comeback90_profile',
-  SETTINGS: 'comeback90_settings',
-  DAILY_LOGS: 'comeback90_daily_logs',
-  WEIGHT_LOGS: 'comeback90_weight_logs',
-  WORKOUT_LOGS: 'comeback90_workout_logs',
-  NUTRITION_LOGS: 'comeback90_nutrition_logs',
-  SKINCARE_LOGS: 'comeback90_skincare_logs',
-  HABITS: 'comeback90_habits',
-  PRODUCTS: 'comeback90_products',
+  VERSION: 'vergis_schema_version',
+  PROFILE: 'vergis_profile',
+  SETTINGS: 'vergis_settings',
+  DAILY_LOGS: 'vergis_daily_logs',
+  WEIGHT_LOGS: 'vergis_weight_logs',
+  WORKOUT_LOGS: 'vergis_workout_logs',
+  NUTRITION_LOGS: 'vergis_nutrition_logs',
+  SKINCARE_LOGS: 'vergis_skincare_logs',
+  HABITS: 'vergis_habits',
+  PRODUCTS: 'vergis_products',
 };
 
 const SCHEMA_VERSION = 1;
@@ -43,7 +43,7 @@ const StorageManager = {
     }
   },
 
-  // Calculate dynamic 90-day progress
+  // Calculate dynamic transformation day
   calculateDay(startDateStr) {
     if (!startDateStr) startDateStr = this.getTodayDateString();
     const start = new Date(startDateStr + 'T00:00:00');
@@ -51,14 +51,21 @@ const StorageManager = {
     const diffTime = today - start;
     const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)) + 1;
     return {
-      currentDay: Math.max(1, diffDays),
-      totalDays: 90,
-      isFinished: diffDays > 90,
-      daysLeft: Math.max(0, 90 - diffDays)
+      currentDay: Math.max(1, diffDays)
     };
   },
 
   init() {
+    // Seamless migration from any legacy keys
+    const legacyKeys = ['schema_version', 'profile', 'settings', 'daily_logs', 'weight_logs', 'workout_logs', 'nutrition_logs', 'skincare_logs', 'habits', 'products'];
+    legacyKeys.forEach(k => {
+      const oldVal = localStorage.getItem('comeback90_' + k);
+      if (oldVal && !localStorage.getItem('vergis_' + k)) {
+        localStorage.setItem('vergis_' + k, oldVal);
+        localStorage.removeItem('comeback90_' + k);
+      }
+    });
+
     // Check if initial storage setup is needed
     if (!localStorage.getItem(STORAGE_KEYS.VERSION)) {
       this.preloadDefaultData();

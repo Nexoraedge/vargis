@@ -1568,7 +1568,7 @@ input, select, textarea {
   font-size: 0.85rem;
 }
 
-/* 90-Day Journey Matrix */
+/* Transformation Matrix */
 .journey-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);

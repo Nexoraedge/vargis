@@ -1,6 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
   <rect width="64" height="64" rx="16" fill="#244B3C"/>
-  <circle cx="32" cy="32" r="22" fill="none" stroke="#C7A878" stroke-width="3" stroke-dasharray="4 3"/>
-  <text x="32" y="38" font-family="'Manrope', -apple-system, sans-serif" font-size="20" font-weight="800" fill="#F7F5EF" text-anchor="middle" letter-spacing="-0.5">90</text>
+  <circle cx="32" cy="32" r="22" fill="none" stroke="#C7A878" stroke-width="2.5" stroke-dasharray="4 3"/>
+  <text x="32" y="41" font-family="'Manrope', -apple-system, sans-serif" font-size="26" font-weight="800" fill="#F7F5EF" text-anchor="middle">V</text>
 </svg>
-

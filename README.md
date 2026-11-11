@@ -2,7 +2,7 @@
 
 > **Build yourself. One day at a time.**
 
-Vergis is an editorial, mobile-first personal transformation web application and 90-day command center. Built with a warm-light aesthetic inspired by premium wellness brands, it provides an all-in-one hub to track physique, body weight, vegetarian nutrition, calisthenics & backpack resistance workouts, barrier-repair skincare, daily discipline habits, and long-term analytics.
+Vergis is an editorial, mobile-first personal transformation web application and command center. Built with a warm-light aesthetic inspired by premium wellness brands, it provides an all-in-one hub to track physique, body weight, vegetarian nutrition, calisthenics & backpack resistance workouts, barrier-repair skincare, daily discipline habits, and long-term analytics.
 
 ---
 
@@ -19,7 +19,6 @@ Vergis deliberately rejects generic blue-purple SaaS gradients in favor of an **
 - **Primary Text**: `#202820`
 - **Secondary Text**: `#777F75`
 - **Borders**: `#E8E7DF`
-- **Secondary Theme**: An optional **Dark Forest** night theme is fully supported and persisted.
 
 ---
 
@@ -51,7 +50,7 @@ Designed specifically for primary usage on mobile devices (iPhone Safari & Andro
 
 - **Height**: 5'11" (180 cm)
 - **Starting Weight**: 59.0 kg
-- **90-Day Target**: 62.0 – 65.0 kg
+- **Primary Target**: 62.0 – 65.0 kg
 - **Long-Term Target**: 72.0 kg
 - **Push-up PR**: 48 reps
 - **Environment**: Home calisthenics & weighted backpack workouts
@@ -65,7 +64,7 @@ Designed specifically for primary usage on mobile devices (iPhone Safari & Andro
 
 ## 🏋️ Workouts & Training System
 
-Vergis enforces a 3-day weekly strength split alternating between **Workout A** and **Workout B**:
+Vergis enforces a 4-day weekly strength split + Sunday sports:
 
 - **Monday — Workout A (Chest, Legs, Core)**:
   - Standard Push-ups: 3 sets × 12–15 reps
@@ -73,18 +72,20 @@ Vergis enforces a 3-day weekly strength split alternating between **Workout A** 
   - Backpack Bent-over Rows: 3 × 12
   - Glute Bridges: 3 × 15
   - Plank Hold: 3 × 30–45s
-- **Tuesday**: Active Recovery / 30–45m Walking
-- **Wednesday — Workout B (Shoulders, Back, Lower)**:
+- **Tuesday — Workout B (Shoulders, Back, Calves)**:
   - Pike Push-ups: 2 × 6–10
   - Backpack Bent-over Rows: 3 × 12
   - Reverse Lunges: 3 × 10 each leg
   - Backpack Overhead Shoulder Press: 2 × 10
   - Standing Calf Raises: 3 × 20
   - Side Plank: 2 × 30s each side
-- **Thursday**: Rest & Mobility
-- **Friday**: Alternate Workout A & B based on week
-- **Saturday**: Light Recovery & Joint Decompression
-- **Sunday**: Recreational Volleyball or Full Rest
+- **Wednesday**: Active Recovery / 30–45m Walking & Hip Mobility
+- **Thursday — Workout A (Chest, Legs, Core)**:
+  - Progressive overload on push-ups, squats, rows, and core stability
+- **Friday — Workout B (Shoulders, Back, Calves)**:
+  - Strict overhead press, rows, lunges, calf raises, side plank
+- **Saturday**: Rest & Deep Mobility
+- **Sunday**: Sunday Sports / Recreational Volleyball & Agility
 
 > **Recovery Law**: Avoid testing maximum push-ups daily. Muscle growth requires 48 hours of muscular recovery and adequate sleep to synthesize new tissue.
 
@@ -161,16 +162,9 @@ vercel
 ```
 
 ### Method 2: GitHub + Vercel Dashboard
-1. Push this directory to your GitHub repository:
+1. Repository:
    ```bash
-   git init
-   git add .
-   git commit -m "feat: initial Vergis release"
-   git remote add origin https://github.com/your-username/comeback-90.git
-   git push -u origin main
+   git push origin main
    ```
 2. Log into [vercel.com](https://vercel.com).
-3. Click **Add New Project** and select your repository.
-4. Framework Preset: **Other** (Root directory `./`).
-5. Click **Deploy**. Vercel will build and assign an instant production URL with automatic HTTPS and edge CDN caching.
-
+3. Vercel automatically deploys every commit to `main` with edge CDN caching and automatic HTTPS.

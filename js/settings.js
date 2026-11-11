@@ -64,7 +64,7 @@ const SettingsModule = {
                 <input type="number" step="0.1" class="form-input" id="cfg-start-wt" value="${profile.startingWeight || 59.0}" required>
               </div>
               <div class="form-group">
-                <label class="form-label">90-Day Target (kg)</label>
+                <label class="form-label">Primary Target (kg)</label>
                 <input type="number" step="0.1" class="form-input" id="cfg-target-wt" value="${profile.targetWeight || 65.0}" required>
               </div>
             </div>
@@ -234,7 +234,7 @@ const SettingsModule = {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `comeback90_backup_${StorageManager.getTodayDateString()}.json`;
+    a.download = `vergis_backup_${StorageManager.getTodayDateString()}.json`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);

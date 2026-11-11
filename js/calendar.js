@@ -1,6 +1,6 @@
 /**
- * Vergis - 90-Day Journey Calendar Module
- * Interactive 90-day grid with milestone markers (Day 1, 30, 60, 90) and day detail inspections.
+ * Vergis - Transformation Journey Matrix Module
+ * Interactive matrix with milestone checkpoints and day detail inspections.
  */
 
 const CalendarModule = {
@@ -70,9 +70,9 @@ const CalendarModule = {
       <div class="page-header animate-fadeIn">
         <div class="page-title-row">
           <div>
-            <span class="badge badge-sage">90-Day Visual Journey</span>
+            <span class="badge badge-sage">Transformation Journey</span>
             <h1 class="page-title">Transformation Calendar</h1>
-            <p class="page-subtitle">Currently on Day ${prog.currentDay} of 90. Click any day to view details.</p>
+            <p class="page-subtitle">Currently on Day ${prog.currentDay}. Click any day to view details.</p>
           </div>
           <div class="calendar-legend flex flex-wrap gap-3">
             <span class="legend-item"><span class="legend-dot bg-primary"></span> Workout</span>
@@ -87,7 +87,7 @@ const CalendarModule = {
       <div class="card mb-6">
         <div class="card-header-row mb-3">
           <h4 class="font-semibold text-sm">Key Programme Checkpoints</h4>
-          <span class="badge badge-sage">Day ${prog.currentDay} / 90</span>
+          <span class="badge badge-sage">Day ${prog.currentDay}</span>
         </div>
         <div class="milestones-row">
           <div class="milestone-step ${prog.currentDay >= 1 ? 'reached' : ''}">
@@ -98,29 +98,29 @@ const CalendarModule = {
           <div class="milestone-line ${prog.currentDay >= 30 ? 'fill' : ''}"></div>
           <div class="milestone-step ${prog.currentDay >= 30 ? 'reached' : ''}">
             <div class="step-circle">D30</div>
-            <span class="step-title">Day 30: Review 1</span>
+            <span class="step-title">Review 1</span>
             <span class="step-sub">Weight + Circumference</span>
           </div>
           <div class="milestone-line ${prog.currentDay >= 60 ? 'fill' : ''}"></div>
           <div class="milestone-step ${prog.currentDay >= 60 ? 'reached' : ''}">
             <div class="step-circle">D60</div>
-            <span class="step-title">Day 60: Review 2</span>
+            <span class="step-title">Review 2</span>
             <span class="step-sub">Progression Overload</span>
           </div>
           <div class="milestone-line ${prog.currentDay >= 90 ? 'fill' : ''}"></div>
           <div class="milestone-step ${prog.currentDay >= 90 ? 'reached' : ''}">
-            <div class="step-circle">D90</div>
-            <span class="step-title">Day 90: Finale</span>
+            <div class="step-circle">Finale</div>
+            <span class="step-title">Finale Checkpoint</span>
             <span class="step-sub">Target: 62–65 kg</span>
           </div>
         </div>
       </div>
 
-      <!-- 90-Day Visual Grid -->
+      <!-- Visual Grid -->
       <div class="card">
         <div class="card-header-row mb-4">
           <div>
-            <h3 class="card-title">90-Day Transformation Matrix</h3>
+            <h3 class="card-title">Transformation Matrix</h3>
             <p class="card-subtitle">Started ${StorageManager.formatDateIndian(startDateStr)}</p>
           </div>
         </div>
@@ -167,7 +167,7 @@ const CalendarModule = {
         <div class="modal-sheet" style="max-width: 540px;">
           <div class="modal-header">
             <div>
-              <span class="badge ${isMilestone ? 'badge-champagne' : 'badge-sage'}">Day ${dayNum} of 90</span>
+              <span class="badge ${isMilestone ? 'badge-champagne' : 'badge-sage'}">Day ${dayNum}</span>
               <h3 class="modal-title mt-1">${StorageManager.formatDateIndian(dateStr)}</h3>
             </div>
             <button class="modal-close-btn" onclick="CalendarModule.closeModal()">&times;</button>

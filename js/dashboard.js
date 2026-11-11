@@ -52,7 +52,7 @@ const DashboardModule = {
     // Time-based greeting
     const greeting = this.getTimeGreeting();
 
-    const showPwaBanner = !localStorage.getItem('comeback90_pwa_dismissed') && !window.matchMedia('(display-mode: standalone)').matches;
+    const showPwaBanner = !localStorage.getItem('vergis_pwa_dismissed') && !window.matchMedia('(display-mode: standalone)').matches;
 
     container.innerHTML = `
       ${showPwaBanner ? `
@@ -61,7 +61,7 @@ const DashboardModule = {
             <div class="pwa-install-icon"><i data-lucide="smartphone"></i></div>
             <div class="pwa-install-text">
               <span class="pwa-install-title">Install Native App</span>
-              <p class="pwa-install-desc">Tap <b>Share ⎋ → Add to Home Screen</b> in Safari/Chrome to use Comeback 90 fullscreen without browser bars.</p>
+              <p class="pwa-install-desc">Tap <b>Share ⎋ → Add to Home Screen</b> in Safari/Chrome to use Vergis fullscreen without browser bars.</p>
             </div>
           </div>
           <button class="btn-icon btn-xs text-secondary" onclick="DashboardModule.dismissPwaBanner()" title="Dismiss">&times;</button>
@@ -74,12 +74,12 @@ const DashboardModule = {
           <div class="greeting-row">
             <span class="greeting-badge">
               <span class="pulse-dot"></span>
-              Day ${prog.currentDay} of 90
+              Day ${prog.currentDay}
             </span>
             <span class="date-text">${this.formatFullDate(today)}</span>
           </div>
           <h1 class="dashboard-title">${greeting}, ${profile.name || 'Champion'}</h1>
-          <p class="tagline">Your comeback starts with consistency. Build yourself, one day at a time.</p>
+          <p class="tagline">Your transformation starts with consistency. Build yourself, one day at a time.</p>
         </div>
         <div class="header-right">
           <button class="btn btn-primary" onclick="DashboardModule.openQuickActionMenu()">
@@ -130,7 +130,7 @@ const DashboardModule = {
             <i data-lucide="target" class="text-champagne-dark"></i>
           </div>
           <div class="metric-content">
-            <span class="metric-label">90-Day Target</span>
+            <span class="metric-label">Target Weight</span>
             <span class="metric-value">${targetWeight.toFixed(1)} <span class="unit">kg</span></span>
             <span class="metric-sub">Long-term: ${profile.longTermTarget || 72} kg</span>
           </div>
@@ -154,9 +154,9 @@ const DashboardModule = {
             <i data-lucide="flag" class="text-champagne-dark"></i>
           </div>
           <div class="metric-content">
-            <span class="metric-label">Programme Timeline</span>
-            <span class="metric-value">Day ${prog.currentDay} <span class="unit">/ 90</span></span>
-            <span class="metric-sub">${prog.daysLeft} days remaining</span>
+            <span class="metric-label">Active Journey</span>
+            <span class="metric-value">Day ${prog.currentDay}</span>
+            <span class="metric-sub">Daily progressive overload</span>
           </div>
         </div>
 
@@ -321,7 +321,7 @@ const DashboardModule = {
         <div class="card-header-row mb-3">
           <div>
             <h3 class="card-title">Weight Progression Trajectory</h3>
-            <p class="card-subtitle">59.0 kg baseline to 65.0 kg 90-day target.</p>
+            <p class="card-subtitle">59.0 kg baseline to 65.0 kg primary target.</p>
           </div>
           <button class="btn btn-sm btn-outline" onclick="ProgressModule.openLogWeightModal()">
             <i data-lucide="plus"></i> Log Weigh-in
@@ -351,7 +351,7 @@ const DashboardModule = {
   },
 
   dismissPwaBanner() {
-    localStorage.setItem('comeback90_pwa_dismissed', 'true');
+    localStorage.setItem('vergis_pwa_dismissed', 'true');
     const banner = document.getElementById('pwa-install-banner');
     if (banner) banner.remove();
   },

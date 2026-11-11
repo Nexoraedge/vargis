@@ -122,7 +122,7 @@ const SkincareModule = {
         <div class="card-header-row">
           <div>
             <h3 class="card-title">Physical Scrub Protocol & Status</h3>
-            <p class="card-subtitle">Forever Aloe Scrub assessment based on your 90-day timeline.</p>
+            <p class="card-subtitle">Forever Aloe Scrub assessment based on your barrier recovery timeline.</p>
           </div>
           <span class="badge ${currentWeek <= 4 ? 'badge-warning' : 'badge-sage'}">
             ${currentWeek <= 4 ? `Week ${currentWeek} of 4: PAUSED` : `Week ${currentWeek}: Optional Gentle Use`}
