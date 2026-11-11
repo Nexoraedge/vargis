@@ -1,0 +1,24 @@
+{
+  "name": "Personal Transformation",
+  "short_name": "Vergis",
+  "description": "Premium personal transformation command center. Track physique, workouts, vegetarian nutrition, skincare, and daily habits.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#F7F5EF",
+  "theme_color": "#244B3C",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "assets/icon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/favicon.svg",
+      "sizes": "64x64",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

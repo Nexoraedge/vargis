@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
+  <title>Comeback 90 — Personal Transformation Dashboard</title>
+
+  <!-- PWA & Mobile Meta -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Comeback 90">
+  <meta name="theme-color" content="#244B3C">
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg">
+  <link rel="apple-touch-icon" href="./assets/icon.svg">
+
+  <!-- Typography: Inter & Manrope -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Core Stylesheet -->
+  <link rel="stylesheet" href="./css/style.css">
+
+  <!-- Chart.js and Lucide Icons -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+  <!-- App Shell Layout -->
+  <div class="app-layout">
+
+    <!-- Desktop Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-logo-wrap">
+          <img src="./assets/favicon.svg" alt="Comeback 90 Emblem" class="brand-logo-img">
+        </div>
+        <div class="brand-text">
+          <span class="brand-title">COMEBACK 90</span>
+          <span class="brand-tagline">Build yourself. One day at a time.</span>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="#dashboard" class="sidebar-nav-item active" data-view="dashboard">
+          <i data-lucide="layout-dashboard"></i>
+          <span>Dashboard</span>
+        </a>
+        <a href="#workouts" class="sidebar-nav-item" data-view="workouts">
+          <i data-lucide="dumbbell"></i>
+          <span>Workouts & Strength</span>
+        </a>
+        <a href="#nutrition" class="sidebar-nav-item" data-view="nutrition">
+          <i data-lucide="utensils"></i>
+          <span>Nutrition & Meals</span>
+        </a>
+        <a href="#skincare" class="sidebar-nav-item" data-view="skincare">
+          <i data-lucide="sparkles"></i>
+          <span>Skincare Regimen</span>
+        </a>
+        <a href="#habits" class="sidebar-nav-item" data-view="habits">
+          <i data-lucide="check-square"></i>
+          <span>Daily Habits</span>
+        </a>
+        <a href="#progress" class="sidebar-nav-item" data-view="progress">
+          <i data-lucide="scale"></i>
+          <span>Progress & Vault</span>
+        </a>
+        <a href="#calendar" class="sidebar-nav-item" data-view="calendar">
+          <i data-lucide="calendar"></i>
+          <span>90-Day Journey</span>
+        </a>
+        <a href="#analytics" class="sidebar-nav-item" data-view="analytics">
+          <i data-lucide="trending-up"></i>
+          <span>Analytics & Insights</span>
+        </a>
+        <a href="#settings" class="sidebar-nav-item" data-view="settings">
+          <i data-lucide="settings"></i>
+          <span>Settings & Backup</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-pill" onclick="App.navigateTo('settings')">
+          <div class="user-avatar">D</div>
+          <div class="user-info">
+            <span class="user-name">Divit</span>
+            <span class="user-sub">59kg → 65kg Target</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-wrapper">
+      <!-- Mobile Top App Bar -->
+      <header class="mobile-top-bar">
+        <div class="mobile-brand">
+          <img src="./assets/favicon.svg" alt="C90" class="mobile-logo-img">
+          <span class="mobile-title">COMEBACK 90</span>
+        </div>
+        <div class="mobile-actions">
+          <button class="btn-icon" onclick="App.navigateTo('settings')" title="Settings">
+            <i data-lucide="settings"></i>
+          </button>
+        </div>
+      </header>
+
+      <!-- Dynamic Page Container -->
+      <div id="main-content-view" class="content-container">
+        <!-- Injected via JavaScript modules -->
+      </div>
+    </main>
+
+    <!-- Mobile Bottom Navigation Bar -->
+    <nav class="bottom-nav">
+      <button class="bottom-nav-item active" data-view="dashboard">
+        <i data-lucide="layout-dashboard"></i>
+        <span>Home</span>
+      </button>
+      <button class="bottom-nav-item" data-view="workouts">
+        <i data-lucide="dumbbell"></i>
+        <span>Workout</span>
+      </button>
+      <button class="bottom-nav-item" data-view="nutrition">
+        <i data-lucide="utensils"></i>
+        <span>Nutrition</span>
+      </button>
+      <button class="bottom-nav-item" data-view="progress">
+        <i data-lucide="scale"></i>
+        <span>Progress</span>
+      </button>
+      <button class="bottom-nav-item" data-view="more">
+        <i data-lucide="menu"></i>
+        <span>More</span>
+      </button>
+    </nav>
+
+    <!-- Mobile "More" Drawer Sheet -->
+    <div class="more-sheet-backdrop" id="mobile-more-sheet" onclick="if(event.target === this) App.closeMoreSheet()">
+      <div class="more-sheet-drawer">
+        <div class="drawer-handle"></div>
+        <div class="drawer-header">
+          <h3 class="font-bold text-lg">More Sections</h3>
+          <button class="btn-icon" onclick="App.closeMoreSheet()">&times;</button>
+        </div>
+        <div class="drawer-grid">
+          <button class="drawer-card" onclick="App.navigateTo('skincare')">
+            <div class="drawer-icon-box bg-sage-light">
+              <i data-lucide="sparkles" class="text-primary"></i>
+            </div>
+            <span>Skincare Routine</span>
+          </button>
+          <button class="drawer-card" onclick="App.navigateTo('habits')">
+            <div class="drawer-icon-box bg-champagne-light">
+              <i data-lucide="check-square" class="text-champagne-dark"></i>
+            </div>
+            <span>Daily Habits</span>
+          </button>
+          <button class="drawer-card" onclick="App.navigateTo('calendar')">
+            <div class="drawer-icon-box bg-sage-light">
+              <i data-lucide="calendar" class="text-primary"></i>
+            </div>
+            <span>90-Day Journey</span>
+          </button>
+          <button class="drawer-card" onclick="App.navigateTo('analytics')">
+            <div class="drawer-icon-box bg-champagne-light">
+              <i data-lucide="trending-up" class="text-champagne-dark"></i>
+            </div>
+            <span>Analytics & Charts</span>
+          </button>
+          <button class="drawer-card" onclick="App.navigateTo('settings')">
+            <div class="drawer-icon-box bg-neutral-light">
+              <i data-lucide="settings" class="text-secondary"></i>
+            </div>
+            <span>Settings & Backup</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast Notifications Container -->
+    <div id="toast-container" class="toast-container"></div>
+  </div>
+
+  <!-- Application Modules -->
+  <script src="./js/idb.js"></script>
+  <script src="./js/storage.js"></script>
+  <script src="./js/workouts.js"></script>
+  <script src="./js/nutrition.js"></script>
+  <script src="./js/skincare.js"></script>
+  <script src="./js/habits.js"></script>
+  <script src="./js/progress.js"></script>
+  <script src="./js/calendar.js"></script>
+  <script src="./js/analytics.js"></script>
+  <script src="./js/settings.js"></script>
+  <script src="./js/dashboard.js"></script>
+  <script src="./js/app.js"></script>
+</body>
+</html>
